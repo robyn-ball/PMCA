@@ -1,0 +1,23 @@
+citHeader("To cite PMCA in publications use:")
+
+citEntry(
+  entry = "Manual",
+  title = "PMCA: Permutation-based Maximum Covariance Analysis",
+  year = "2020",
+  author = "Robyn L Ball, Yasuhiro Fujiwara, Mary Ann Handel, and Gregory W Carter",
+  organization = "The Jackson Laboratory",
+  note = "R package version 0.1.0",
+  textVersion  = "RL Ball, Y Fujiwara, MA Handel, GW Carter (2020). PMCA: Permutation-based Maximum Covariance Analysis. R package version 0.1.0."
+)
+
+citEntry(
+  entry    = "Article",
+  title    = "Regulatory complexity revealed by integrated cytological and RNA-seq analyses of meiotic substages in mouse spermatocytes",
+  author   = "Robyn L Ball, Yasuhiro Fujiwara, Fengyun Sun, Jianjun Hu, Matthew A Hibbs, Mary Ann Handel, Gregory W Carter",
+  journal  = "BMC Genomics",
+  year     = "2016",
+  volume   = "17",
+  number   = "628",
+  url      = "https://rdcu.be/b8I9S",
+  textVersion = "Ball, R.L., Fujiwara, Y., Sun, F. et al. Regulatory complexity revealed by integrated cytological and RNA-seq analyses of meiotic substages in mouse spermatocytes. BMC Genomics 17, 628 (2016)."
+)
