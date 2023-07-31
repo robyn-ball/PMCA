@@ -25,7 +25,17 @@ Permutation-based Maximum Covariance Analysis (PMCA) identifies common patterns 
 You can install the released version of PMCA from [github](https://github.com/robyn-ball/PMCA) with:
 
 ```{r}
-@visualization
+library(devtools)
+```
+
+If only using the PMCA statistical tool:
+```{r}
+devtools::install_github("robyn-ball/PMCA")
+```
+
+Or, if using the visualization tool also:
+```{r}
+devtools::install_github("robyn-ball/PMCA@visualization")
 ```
 
 ### Pip
@@ -102,22 +112,6 @@ If you don't already have R and RStudio installed:
 
 - [Download and install R](https://cran.rstudio.com/)
 - [Download and install RStudio](https://posit.co/download/rstudio-desktop/)
-
-## Installing the PMCA package
-
-```{r}
-library(devtools)
-```
-
-If only using the PMCA statistical tool:
-```{r}
-devtools::install_github("robyn-ball/PMCA")
-```
-
-Or, if using the visualization tool also:
-```{r}
-devtools::install_github("robyn-ball/PMCA@visualization")
-```
 
 ## Example
 
