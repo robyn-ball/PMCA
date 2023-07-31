@@ -28,14 +28,11 @@ You can install the released version of PMCA from [github](https://github.com/ro
 library(devtools)
 ```
 
-If only using the PMCA statistical tool:
-```{r}
-devtools::install_github("robyn-ball/PMCA")
-```
+If only using the PMCA statistical tool: `devtools::install_github("robyn-ball/PMCA")`
 
 Or, if using the visualization tool also:
 ```{r}
-devtools::install_github("robyn-ball/PMCA@visualization")
+devtools::install_github("robyn-ball/PMCA@visualization", force=TRUE)
 ```
 
 ### Pip
@@ -253,9 +250,11 @@ head(mapped.results$assoc.fpr.table[, 1:10])
 # anti-associated FPRs: FPRs for each rowterm of X and the rowterms of Y that are anti-associated with any rowterm of X
 head(mapped.results$antiassoc.fpr.table[, 1:10])
 ```
+
+We save the result so we can access it later:
+
 ```{r}
-# We save the result like so:
-folder_name <- "mapped_results"
+folder_name <- "results"
 
 if (!file.exists(folder_name)) {
   dir.create(folder_name)

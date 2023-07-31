@@ -23,6 +23,6 @@ of meiotic substages in mouse spermatocytes. BMC Genomics 17, 628 (2016).
 Xexample
 }
 \description{
-
+Example data for PMCA
 }
 \keyword{datasets}
