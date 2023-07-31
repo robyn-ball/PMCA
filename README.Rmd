@@ -24,15 +24,15 @@ Permutation-based Maximum Covariance Analysis (PMCA) identifies common patterns 
 
 You can install the released version of PMCA from [github](https://github.com/robyn-ball/PMCA) with:
 
-```{r}
+```{r, results = FALSE, message=FALSE}
 library(devtools)
 ```
 
 If only using the PMCA statistical tool: `devtools::install_github("robyn-ball/PMCA")`
 
 Or, if using the visualization tool also:
-```{r}
-devtools::install_github("robyn-ball/PMCA@visualization", force=TRUE)
+```{r, results = FALSE, message=FALSE}
+devtools::install_github("robyn-ball/PMCA@visualization")
 ```
 
 ### Pip
@@ -82,7 +82,7 @@ py -m venv iggi
 On MacOS/Unix:
 
 ```{shell}
-source iggi/bin/activate
+source ~/.virtualenvs/iggi/bin/activate
 ```
 
 On Windows:
@@ -90,7 +90,8 @@ On Windows:
 iggi\Scripts\activate
 ```
 
-#### Install the requirements (make sure you're in the pmca-bipartite folder!):
+#### Install the requirements
+*Make sure you're in the PMCA folder!*
 
 On MacOS/Unix:
 

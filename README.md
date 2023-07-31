@@ -4,7 +4,6 @@
 # PMCA
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 Permutation-based Maximum Covariance Analysis (PMCA) identifies common
@@ -21,8 +20,99 @@ You can install the released version of PMCA from
 
 ``` r
 library(devtools)
-devtools::install_github("robyn-ball/PMCA")
 ```
+
+If only using the PMCA statistical tool:
+`devtools::install_github("robyn-ball/PMCA")`
+
+Or, if using the visualization tool also:
+
+``` r
+devtools::install_github("robyn-ball/PMCA@visualization")
+```
+
+### Pip
+
+Make sure you have Python \>= 3.6 installed:
+
+``` shell
+python3 --version
+```
+
+Check if you have pip installed with
+
+``` shell
+pip --version
+```
+
+If not, or you want to update to the latest version, enter
+
+``` shell
+python3 -m pip install --user --upgrade pip
+```
+
+### Virtual environment
+
+Check if you have virtualenv installed:
+
+``` shell
+virtualenv --version
+```
+
+If you don’t already have virtualenv installed:
+`python3 -m pip install --user virtualenv`
+
+#### Create the virtual environment:
+
+On MacOS/Unix:
+
+``` shell
+python3 -m venv ~/.virtualenvs/iggi
+```
+
+On Windows:
+
+``` shell
+py -m venv iggi
+```
+
+#### Activate the virtual environment:
+
+On MacOS/Unix:
+
+``` shell
+source iggi/bin/activate
+```
+
+On Windows:
+
+``` shell
+iggi\Scripts\activate
+```
+
+#### Install the requirements
+
+*Make sure you’re in the pmca-bipartite folder!*
+
+On MacOS/Unix:
+
+``` shell
+python3 -m pip install -r requirements.txt
+```
+
+On Windows:
+
+``` shell
+py -m pip install -r requirements.txt
+```
+
+### R & RStudio
+
+If you don’t already have R and RStudio installed:
+
+- [Download and install R](https://cran.rstudio.com/)
+- [Download and install
+  RStudio](https://posit.co/download/rstudio-desktop/)
 
 ## Example
 
@@ -47,7 +137,7 @@ library(PMCA)
 mca.real <- get.mca(Xexample,Yexample)
 ```
 
-Calculate Z\_x, Z\_y, and sigma for matrices Xexample and Yexample.
+Calculate Z_x, Z_y, and sigma for matrices Xexample and Yexample.
 
 Next, plot the singular values of the covariance matrix of Xexample and
 Yexample.
@@ -56,7 +146,7 @@ Yexample.
 plot(mca.real$sigma)
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
 
 Now we make some decisions based on the singular values.
 
@@ -64,9 +154,9 @@ The following parameters are + by: by which component do you want the
 FPR \<= alpha + alpha: specify alpha such that the FPR \<= alpha by the
 given component (by) + method: “overall” to calculate an overall FPR
 across the entire component, “each” if you want a FPR for each rowterm
-of Xexample. Note that “overall” is faster. + B: number of permutations
-+ plot: TRUE will plot one of the FPR distributions across all B
-permutations.
+of Xexample. Note that “overall” is faster. + B: number of
+permutations + plot: TRUE will plot one of the FPR distributions across
+all B permutations.
 
 The following will calculate an FPR for each rowterm of Xexample
 (substage) and ensure that the FPR is \<= 0.05 by the 3rd component. It
@@ -116,8 +206,8 @@ width and thus ensure that the FPR \<= 0.05 by the 3rd component (as we
 specified above).
 
 tau controls the width of the window w/tau. We start with w = the
-standard deviation of Z\_x and tau=1. Note that a larger tau will be
-more strict and result in finer lists of associations. Try a larger or
+standard deviation of Z_x and tau=1. Note that a larger tau will be more
+strict and result in finer lists of associations. Try a larger or
 smaller tau if the lists are too stringent (fine) or too relaxed
 (large).
 
@@ -127,7 +217,7 @@ set.seed(B) # for reproducibilty
 it.result <- iterative.proc(scores.rand,alpha=alpha,w=w,method=method,by=by,rowterms=rownames(Yexample), plot=plot,tau=1)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-18-1.png" width="100%" />
 
 Print tau and the estimated FPR at each component and row of Xexample.
 
@@ -151,8 +241,7 @@ You will get a finer list as you use more columns so that the genes that
 map if you use columns 1-3 have a FPR \<= 0.05 and the genes that map to
 a rowterm of Xexample using the 4th component will have a lower FPR.
 
-g = list of rownames(Yexample) that match patterns of
-rownames(Xexample)
+g = list of rownames(Yexample) that match patterns of rownames(Xexample)
 
 ``` r
 g <- match.patterns(scores.real,w=it.result$wopt, rowterms = rownames(Yexample))  
@@ -161,13 +250,13 @@ g <- match.patterns(scores.real,w=it.result$wopt, rowterms = rownames(Yexample))
 g\[\[i\]\]\[\[j\]\]: all the rownames(Yexample) that match the pattern
 of rownames(Xexample)\[i\] when the component = j
 
-For example, if you want to know what genes map to “LP\_Dip” (row 6)
-when using 4 components, use g\[\[6\]\]\[\[4\]\].
+For example, if you want to know what genes map to “LP_Dip” (row 6) when
+using 4 components, use g\[\[6\]\]\[\[4\]\].
 
-  - g\[\[1\]\]\[\[4\]\] are those genes that match celltype 1 and have a
-    FPR \< 0.05
-  - g\[\[1\]\]\[\[5\]\] are those genes that match celltype 1 and have a
-    FPR \< 0.02
+- g\[\[1\]\]\[\[4\]\] are those genes that match celltype 1 and have a
+  FPR \< 0.05
+- g\[\[1\]\]\[\[5\]\] are those genes that match celltype 1 and have a
+  FPR \< 0.02
 
 Note that necessarily, every gene in g\[\[1\]\]\[\[5\]\] is also in
 g\[\[1\]\]\[\[4\]\], g\[\[1\]\]\[\[3\]\], g\[\[1\]\]\[\[2\]\],
@@ -202,7 +291,7 @@ rownames(Xexample)\[i\] \[substage i\] & rownames(Xexample)\[j\]
 \[substage j\]
 
 Here, we see that 58 genes are specific to Spermatogonia, 162 genes are
-specific to LP\_Dip, and 55 genes are shared between LL\_Zyg and EP.
+specific to LP_Dip, and 55 genes are shared between LL_Zyg and EP.
 
 Using a more stringent FPR, select component 3:
 
@@ -227,10 +316,9 @@ int
 ```
 
 Now, only 44 genes are specific to Spermatogonia and 40 genes are shared
-between LL\_Zyg and EP
+between LL_Zyg and EP
 
-Similarly, the anti-associations can be extracted using
-scores.neg.
+Similarly, the anti-associations can be extracted using scores.neg.
 
 ``` r
 h <- match.patterns(scores.neg,w=it.result$wopt, rowterms = rownames(Yexample))  
@@ -255,5 +343,91 @@ int
 
 Now, we see that 100 genes are anti-associated to spermatogonia, etc.
 
+We extract a dataframe of these associations and anti-associations, as
+follows
+
+``` r
+mapped.results <- extract.fpr.table(Xexample, Yexample, it.result)
+# associated FPRs: FPRs for each rowterm of X and the rowterms of Y that are associated with any rowterm of X
+head(mapped.results$assoc.fpr.table[, 1:10])
+#>                 NONMMUG008290 ENSMUSG00000061787 ENSMUSG00000059363
+#> Spermatogonia        0.002643           0.002643           0.002643
+#> preleptotene               NA                 NA                 NA
+#> Early.leptotene            NA                 NA                 NA
+#> LL_Zyg                     NA                 NA                 NA
+#> Early.pachytene            NA                 NA                 NA
+#> LP_Dip                     NA                 NA                 NA
+#>                 ENSMUSG00000093594 ENSMUSG00000043165 NONMMUG037495
+#> Spermatogonia             0.002643           0.002643      0.002643
+#> preleptotene                    NA                 NA            NA
+#> Early.leptotene                 NA                 NA            NA
+#> LL_Zyg                          NA                 NA            NA
+#> Early.pachytene                 NA                 NA            NA
+#> LP_Dip                          NA                 NA            NA
+#>                 ENSMUSG00000035413 ENSMUSG00000003573 ENSMUSG00000082079
+#> Spermatogonia             0.002643           0.002643                 NA
+#> preleptotene                    NA                 NA                 NA
+#> Early.leptotene                 NA                 NA                 NA
+#> LL_Zyg                          NA                 NA           0.001905
+#> Early.pachytene                 NA                 NA                 NA
+#> LP_Dip                          NA                 NA                 NA
+#>                 ENSMUSG00000081486
+#> Spermatogonia                   NA
+#> preleptotene                    NA
+#> Early.leptotene                 NA
+#> LL_Zyg                    0.001905
+#> Early.pachytene                 NA
+#> LP_Dip                          NA
+# anti-associated FPRs: FPRs for each rowterm of X and the rowterms of Y that are anti-associated with any rowterm of X
+head(mapped.results$antiassoc.fpr.table[, 1:10])
+#>                 ENSMUSG00000057000 ENSMUSG00000040532 ENSMUSG00000040549
+#> Spermatogonia             0.002643           0.002643           0.002643
+#> preleptotene                    NA                 NA                 NA
+#> Early.leptotene                 NA                 NA                 NA
+#> LL_Zyg                          NA                 NA                 NA
+#> Early.pachytene                 NA                 NA                 NA
+#> LP_Dip                          NA                 NA                 NA
+#>                 ENSMUSG00000026816 ENSMUSG00000032537 ENSMUSG00000026021
+#> Spermatogonia             0.002643           0.002643           0.002643
+#> preleptotene                    NA                 NA                 NA
+#> Early.leptotene                 NA                 NA                 NA
+#> LL_Zyg                          NA                 NA                 NA
+#> Early.pachytene                 NA                 NA                 NA
+#> LP_Dip                          NA                 NA                 NA
+#>                 NONMMUG023671 ENSMUSG00000037997 ENSMUSG00000038126
+#> Spermatogonia        0.002643           0.002643           0.002643
+#> preleptotene               NA                 NA                 NA
+#> Early.leptotene            NA                 NA                 NA
+#> LL_Zyg                     NA                 NA                 NA
+#> Early.pachytene            NA                 NA                 NA
+#> LP_Dip                     NA                 NA                 NA
+#>                 NONMMUG041920
+#> Spermatogonia              NA
+#> preleptotene               NA
+#> Early.leptotene      0.000685
+#> LL_Zyg                     NA
+#> Early.pachytene            NA
+#> LP_Dip                     NA
+```
+
+We save the result so we can access it later:
+
+``` r
+folder_name <- "results"
+
+if (!file.exists(folder_name)) {
+  dir.create(folder_name)
+}
+for (item_name in names(mapped.results)) {
+  file_name <- file.path(folder_name, paste0(item_name, ".csv"))
+  write.csv(mapped.results[[item_name]], file = file_name)
+}
+```
+
 A detailed description of the mathematics behind PMCA can be found
 [here](https://static-content.springer.com/esm/art%3A10.1186%2Fs12864-016-2865-1/MediaObjects/12864_2016_2865_MOESM3_ESM.pdf).
+
+## Visualization
+
+Use the directions in `Visualization_README.Rmd` to import the saved
+results and generate the k-partite graph.

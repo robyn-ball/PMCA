@@ -3,4 +3,5 @@
 .RData
 .Ruserdata
 iggi
-mapped_results
+results
+__pycache__

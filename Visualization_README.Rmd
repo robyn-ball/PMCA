@@ -17,6 +17,15 @@ knitr::opts_chunk$set(
 
 The following describes the addition of the visualization tool, which also allows export of alternate data structures based on filtering thresholds and k-partite associations.
 
+## Installation
+
+You can install the released version of PMCA from [github](https://github.com/robyn-ball/PMCA) with:
+
+```{r, results = FALSE, message=FALSE}
+library(devtools)
+devtools::install_github("robyn-ball/PMCA@visualization")
+```
+
 ## Setup
 
 First, we set up the visualization environment by importing necessary packages and libraries
@@ -24,12 +33,6 @@ First, we set up the visualization environment by importing necessary packages a
 ```{r}
 library(reticulate) # We use reticulate to run Python functions in R
 library(plotly) # Plotly is the visualization tool
-
-# --- DEV to remove on package integration --- #
-library(devtools)
-# Load scripts
-devtools::load_all()
-# ------------------#
 
 # Set up the Python virtual environment
 reticulate::use_virtualenv("iggi")
@@ -46,7 +49,7 @@ There are additional optional parameters, such as the boolean `debug` flag and `
 
 ```{r}
 # This function requires mapped.results from the main PMCA code, which we import:
-dataframe.datalist <- kp$find_data('mapped_results', default_threshold=0.01) 
+dataframe.datalist <- kp$find_data('results', default_threshold=0.01) 
 fig <- make.graph(dataframe.datalist, 'Spermatogonia', 0.01, debug=TRUE) # These are the minimum required parameters
 fig
 ```
