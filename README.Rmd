@@ -24,9 +24,99 @@ Permutation-based Maximum Covariance Analysis (PMCA) identifies common patterns 
 
 You can install the released version of PMCA from [github](https://github.com/robyn-ball/PMCA) with:
 
-``` r
+```{r}
+@visualization
+```
+
+### Pip
+Make sure you have Python >= 3.6 installed:
+
+```{shell}
+python3 --version
+```
+
+Check if you have pip installed with
+
+```{shell}
+pip --version
+````
+
+If not, or you want to update to the latest version, enter
+
+```{shell}
+python3 -m pip install --user --upgrade pip
+```
+
+### Virtual environment
+Check if you have virtualenv installed:
+
+```{shell}
+virtualenv --version
+```
+
+If you don't already have virtualenv installed: `python3 -m pip install --user virtualenv`
+
+#### Create the virtual environment:
+
+On MacOS/Unix:
+
+```{shell}
+python3 -m venv ~/.virtualenvs/iggi
+```
+
+On Windows:
+
+```{shell}
+py -m venv iggi
+```
+
+#### Activate the virtual environment:
+
+On MacOS/Unix:
+
+```{shell}
+source iggi/bin/activate
+```
+
+On Windows:
+```{shell}
+iggi\Scripts\activate
+```
+
+#### Install the requirements (make sure you're in the pmca-bipartite folder!):
+
+On MacOS/Unix:
+
+```{shell}
+python3 -m pip install -r requirements.txt
+```
+
+On Windows:
+
+```{shell}
+py -m pip install -r requirements.txt
+```
+
+### R & RStudio
+If you don't already have R and RStudio installed:
+
+- [Download and install R](https://cran.rstudio.com/)
+- [Download and install RStudio](https://posit.co/download/rstudio-desktop/)
+
+## Installing the PMCA package
+
+```{r}
 library(devtools)
+```
+
+If only using the PMCA statistical tool:
+```{r}
 devtools::install_github("robyn-ball/PMCA")
+```
+
+Or, if using the visualization tool also:
+```{r}
+devtools::install_github("robyn-ball/PMCA@visualization")
 ```
 
 ## Example
@@ -160,5 +250,30 @@ int
 
 Now, we see that 100 genes are anti-associated to spermatogonia, etc.
 
+We extract a dataframe of these associations and anti-associations, as follows
+
+```{r}
+mapped.results <- extract.fpr.table(Xexample, Yexample, it.result)
+# associated FPRs: FPRs for each rowterm of X and the rowterms of Y that are associated with any rowterm of X
+head(mapped.results$assoc.fpr.table[, 1:10])
+# anti-associated FPRs: FPRs for each rowterm of X and the rowterms of Y that are anti-associated with any rowterm of X
+head(mapped.results$antiassoc.fpr.table[, 1:10])
+```
+```{r}
+# We save the result like so:
+folder_name <- "mapped_results"
+
+if (!file.exists(folder_name)) {
+  dir.create(folder_name)
+}
+for (item_name in names(mapped.results)) {
+  file_name <- file.path(folder_name, paste0(item_name, ".csv"))
+  write.csv(mapped.results[[item_name]], file = file_name)
+}
+
+```
 
 A detailed description of the mathematics behind PMCA can be found [here](https://static-content.springer.com/esm/art%3A10.1186%2Fs12864-016-2865-1/MediaObjects/12864_2016_2865_MOESM3_ESM.pdf).
+
+## Visualization
+Use the directions in `Visualization_README.Rmd` to import the saved results and generate the k-partite graph.
