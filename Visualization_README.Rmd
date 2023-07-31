@@ -69,7 +69,7 @@ such that there is a list of length K which contains metadata and dataframes for
 
 ```{r}
 # Specify a data directory
-directory <- 'mapped_results/'
+directory <- 'results'
 
 # Import the data and, optionally, set custom thresholds
 dataframe.datalist <- kp$find_data(directory,
@@ -86,21 +86,28 @@ dataframe.datalist
 
 This function computes edgelists for each of the dataframes in dataframe.datalist. 
 
-```{r}
-# Obtain a list of edgelists from the dataframe list; specifiy node of interest
-edgelist.datalist <- kp$get_edgelists(dataframe.datalist, 'g__Turicibacter')
-```
+Obtain a list of edgelists from the dataframe list; specifiy node of interest:
 
 ```{r}
-# Obtain a list of nodes from the set of edgelists
+edgelist.datalist <- kp$get_edgelists(dataframe.datalist, 'preleptotene')
+edgelist.datalist
+```
+Obtain a list of nodes from the set of edgelists:
+
+```{r}
 nodelist <- kp$get_nodes(edgelist.datalist)
+nodelist
 ```
 
+Concatenate all the edgelists together and position the edges/nodes:
+
 ```{r}
-# Concatenate all the edgelists together and position the edges/nodes
 positioned.edges <- kp$get_edge_positions(edgelist.datalist, nodelist)
+positioned.edges
 ```
+Plot the visualization:
 
 ```{r}
-# Plot the visualization
-fig <- make.graph(dataframe.datalist, 'g__Turicibacter', 0.01, debug=TRUE)
+fig <- make.graph(dataframe.datalist, 'preleptotene', 0.1, debug=TRUE)
+fig
+```
