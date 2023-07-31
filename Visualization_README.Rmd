@@ -23,7 +23,8 @@ You can install the released version of PMCA from [github](https://github.com/ro
 
 ```{r, results = FALSE, message=FALSE}
 library(devtools)
-devtools::install_github("robyn-ball/PMCA@visualization")
+devtools::install_github("robyn-ball/PMCA@visualization", force=TRUE)
+library(PMCA)
 ```
 
 ## Setup

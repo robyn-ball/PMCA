@@ -34,6 +34,11 @@ Or, if using the visualization tool also:
 ```{r, results = FALSE, message=FALSE}
 devtools::install_github("robyn-ball/PMCA@visualization")
 ```
+and load the library:
+
+```{r}
+library(PMCA)
+```
 
 ### Pip
 Make sure you have Python >= 3.6 installed:
@@ -124,7 +129,6 @@ Yexample (1000 x 28) are the corresponding gene expression values (1000 genes) f
 We wish to identify the substage-specific genes, i.e., we wish to map the genes of Yexample onto the substages of X.
 
 ```{r example}
-library(PMCA)
 mca.real <- get.mca(Xexample,Yexample)
 ```
 
