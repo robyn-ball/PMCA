@@ -31,7 +31,7 @@ library(PMCA)
 
 First, we set up the visualization environment by importing necessary packages and libraries
 
-```{r}
+```{r, results = FALSE, message=FALSE}
 library(reticulate) # We use reticulate to run Python functions in R
 library(plotly) # Plotly is the visualization tool
 
@@ -63,7 +63,7 @@ if (knitr::is_html_output()) {
 }
 ```
 
-```{r static_image, echo = FALSE}
+```{r static_image, echo = FALSE, out.width="50%"}
 # If markdown viewer does not support html (e.g. GitHub)
 if (!knitr::is_html_output()) {
   htmlwidgets::saveWidget(widget = fig, file = "graph.html")
@@ -103,7 +103,7 @@ dataframe.datalist
 
 This function computes edgelists for each of the dataframes in dataframe.datalist. 
 
-Obtain a list of edgelists from the dataframe list; specifiy node of interest:
+Obtain a list of edgelists from the dataframe list; specify node of interest:
 
 ```{r}
 edgelist.datalist <- kp$get_edgelists(dataframe.datalist, 'Spermatogonia')
@@ -127,5 +127,20 @@ Plot the visualization:
 
 ```{r}
 fig <- make.graph(dataframe.datalist, 'Spermatogonia', 0.01, debug=TRUE)
-fig
+```
+
+```{r interactive_plot_2, echo = FALSE}
+# If markdown viewer supports html:
+if (knitr::is_html_output()) {
+  fig
+}
+```
+
+```{r static_image_2, echo = FALSE, out.width="50%"}
+# If markdown viewer does not support html (e.g. GitHub)
+if (!knitr::is_html_output()) {
+  htmlwidgets::saveWidget(widget = fig, file = "graph.html")
+  webshot::webshot(url = "graph.html", file = "graph.png")
+  knitr::include_graphics("graph.png")
+}
 ```

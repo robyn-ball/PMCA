@@ -100,7 +100,6 @@ make.graph <- function(dataframe_datalist, focus, default_threshold=0.001, apply
       annotations = annotations
     )
 
-  orca(fig, file = "graph.png")
   return(fig)
 
 }
