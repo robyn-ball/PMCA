@@ -4,6 +4,7 @@ Title: Permutation-based Maximum Covariance Analysis
 Version: 0.2.0
 Authors@R: c(person("Robyn", "Ball", "L", email = "help.pmca@gmail.com",
                   role = c("aut", "cre")),
+                  person("Adams", "Jane", "L", role="aut"),
                   person("Yasuhiro", "Fujiwara", role="dtc"),
                   person("Handel", "Mary Ann", role="dtc"),
                   person("Gregory", "Carter", "W", role="aut") )
