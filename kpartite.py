@@ -47,7 +47,6 @@ def convert_mapped(mapped_results, apply_threshold=None, default_threshold=0.001
 
     # Iterate over each element in the original list
     for file, double in mapped_results.items():
-        print('yay1\n\n\n')
 
         # Convert numpy array to pandas DataFrame
         df = pd.DataFrame(double)
@@ -246,7 +245,7 @@ def get_edgelists(dataframe_datalist, selected=None, value=None, debug=False):
     """
     edgelist_datalist = []
     for df_data in dataframe_datalist:
-        print(df_data['name'])
+        if debug: print(df_data['name'])
         edgelist_data = filter_df(df_data, selected=selected, value=value, debug=debug)
         # Test
         nan_count = edgelist_data['dataframe'].isna().sum().sum()
